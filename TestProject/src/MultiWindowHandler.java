@@ -18,19 +18,20 @@ public class MultiWindowHandler
 		driver.get("https://www.facebook.com/");
 		driver.findElement(By.xpath("//a[text() = 'Termos']")).click();
 		
-		String mainWindow=driver.getWindowHandle();//Only one Window
-		Set<String> allWindow=driver.getWindowHandles();//All The Window
-		Iterator<String> it=allWindow.iterator();
+		String mainWindow=driver.getWindowHandle();//Only one Window, get the cureent window
+		Set<String> allWindow = driver.getWindowHandles();//All The Windows
+		Iterator<String> it = allWindow.iterator();
 		while(it.hasNext())
 		{
-			String childWindow=(String) it.next();
-			if(childWindow!=mainWindow)
+			String childWindow= (String) it.next();
+			if(childWindow != mainWindow)
 			{
 				driver.switchTo().window(childWindow);
 				Thread.sleep(4000);
-				WebElement txt=driver.findElement(By.xpath("//h4[contains(@class,'52ju')]"));
-				String val=txt.getText();
-				System.out.println(val);
+				WebElement term = driver.findElement(By.linkText("Termos de Serviço"));
+				term.click();
+				//if you want to come back to the main window  you can use driver.switchTo().window(mainWindow)
+			
 			}
 		}	
 	}
